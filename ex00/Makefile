@@ -5,83 +5,34 @@
 #                                                     +:+ +:+         +:+      #
 #    By: chtan <chtan@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2024/11/18 13:37:51 by chtan             #+#    #+#              #
-#    Updated: 2024/11/18 13:39:29 by chtan            ###   ########.fr        #
+#    Created: 2024/11/18 14:02:02 by chtan             #+#    #+#              #
+#    Updated: 2024/11/18 14:02:08 by chtan            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME		=	megaphone
+NAME			=	./megaphone
+CXX				=	@c++
+CXXFLAGS		=	-Wall -Wextra -Werror -pedantic -std=c++98 -g3
+SRC				=	./src/*.cpp
+CPPFLAGS		=	-I./include/
+OBJ_DIR			=	./.objs
+# ------------------------------------------------------------------#
+# makefile-rules  								  			#
+# ------------------------------------------------------------------#
+all				:	$(NAME)
 
-CC			=	c++
+$(NAME)			:	$(SRC)
+	@$(CXX) $(CXXFLAGS) $(CPPFLAGS) -c $(SRC)
+	@mkdir -p $(OBJ_DIR) && mv ./*.o $(OBJ_DIR)
+	@$(CXX) $(CPPFLAGS) $(CXXFLAGS) -o $(NAME) $(OBJ_DIR)/*.o
 
-CFLAGS		=	-Wall -Werror -Wextra -std=c++98
+clean			:
+	@rm -rf $(OBJ_DIR) && rm -rf ./*.o
 
-# directories
-SRC_DIR		=	src/
-OBJ_DIR		=	obj/
-INC_DIR		=	include/
+fclean			:	clean
+	@rm -rf $(NAME)
 
-# controll codes
-RESET		=	\033[0m
-GREEN		=	\033[32m
-YELLOW		=	\033[33m
-BLUE		=	\033[34m
-RED			=	\033[31m
-UP			=	\033[A
-CUT			=	\033[K
+re				:	fclean all
 
-#source files
-SRC_FILES	=	megaphone.cpp
-
-OBJ_FILES	=	$(SRC_FILES:%.cpp=$(OBJ_DIR)%.o)
-
-#paths
-SRC			=	$(addprefix $(SRC_DIR), $(SRC_FILES))
-OBJ			=	$(addprefix $(OBJ_DIR), $(OBJ_FILES))
-
-#all rule
-all: $(NAME)
-	@printf "\n"
-	@printf "$(GREEN)            ___ ___        ___    _____    _     _   \n$(RESET)"
-	@printf "$(GREEN) ___ _ _   |   |   |   ___|  _|  |    _| _| |_ _| |_ \n$(RESET)"
-	@printf "$(GREEN)| -_|_'_|  | | | | |  | . |  _|  |   |_ |_   _|_   _|\n$(RESET)"
-	@printf "$(GREEN)|___|_,_|  |___|___|  |___|_|    |_____|  |_|   |_|  \n$(RESET)"
-	@printf "$(GREEN)                                                     \n$(RESET)"
-	@printf "\n"
-
-#compile the executable
-$(NAME): $(OBJ)
-	@echo "$(YELLOW)Compiling [$(NAME)]...$(RESET)"
-	@$(CC) $(CFLAGS) $(OBJ) -o $(NAME)
-	@echo "$(GREEN)Finished [$(NAME)]$(RESET)"
-
-#compile objects
-$(OBJ_DIR)%.o:$(SRC_DIR)%.cpp
-	@mkdir -p $(OBJ_DIR)
-	@echo "$(YELLOW)Compiling [$@]...$(RESET)"
-	@$(CC) $(CFLAGS) -I $(INC_DIR) -o $@ -c $<
-	@printf "$(UP)$(CUT)"
-	@echo "$(GREEN)Finished [$@]$(RESET)"
-	@printf "$(UP)$(CUT)"
-
-#clean rule
-clean:
-	@if [ -d "$(OBJ_DIR)" ]; then \
-	rm -rf $(OBJ_DIR); \
-	echo "$(BLUE)Deleting all objects from /ex00...$(RESET)"; else \
-	echo "No objects to remove from /ex00."; \
-	fi;
-
-#fclean rule
-fclean: clean
-	@if [ -f "$(NAME)" ]; then \
-	rm -f $(NAME); \
-	echo "$(BLUE)Deleting $(NAME) from ex00...$(RESET)"; else \
-	echo "No Executable to remove from ex00."; \
-	fi;
-
-#re rule
-re: fclean all
-
-#phony
-.PHONY: all clean fclean re
+run				: 
+	@reset && $(MAKE) -s re && $(NAME) && $(MAKE) -s fclean
