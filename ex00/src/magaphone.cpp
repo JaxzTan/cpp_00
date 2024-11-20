@@ -6,13 +6,16 @@
 /*   By: chtan <chtan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 13:00:51 by chtan             #+#    #+#             */
-/*   Updated: 2024/11/18 13:38:34 by chtan            ###   ########.fr       */
+/*   Updated: 2024/11/18 15:09:08 by chtan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <iostream>
 #include <cctype>
 
+/**
+ * cctype header is for characters functions
+ */
 int main(int argc, char **argv)
 {
 	if (argc > 1)
