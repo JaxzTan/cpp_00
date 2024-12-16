@@ -6,7 +6,7 @@
 /*   By: chtan <chtan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 13:00:51 by chtan             #+#    #+#             */
-/*   Updated: 2024/11/18 15:09:08 by chtan            ###   ########.fr       */
+/*   Updated: 2024/12/16 16:28:48 by chtan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,9 @@
 
 /**
  * cctype header is for characters functions
+ * just like a print arguments function that take arguments and check is it lowercase
+ * if so than turn upper case and
+ * std::cound << ?? is the print function in cpp
  */
 int main(int argc, char **argv)
 {
